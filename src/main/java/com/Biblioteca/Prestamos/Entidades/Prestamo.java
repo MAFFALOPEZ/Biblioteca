@@ -1,7 +1,8 @@
 package com.Biblioteca.Prestamos.Entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -11,14 +12,16 @@ public class Prestamo {
     @Column(unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_prestamo;
-    @ManyToOne
-    @JoinColumn(name = "documento")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "documento", referencedColumnName ="documento", nullable = false)
+    @JsonIgnore
     private Estudiante estudiante;
-    @ManyToOne
-    @JoinColumn(name = "isbn")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "isbn", referencedColumnName = "isbn", nullable = false)
+    @JsonIgnore
     private Libro libro;
+    @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
     private Date fecha;
     @PrePersist
     public void prePersist(){
@@ -52,7 +55,7 @@ public class Prestamo {
     }
 
     public Libro getLibro() {
-        return libro;
+        return (Libro) libro;
     }
 
     public void setLibro(Libro libro) {

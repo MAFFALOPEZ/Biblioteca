@@ -9,5 +9,4 @@ import java.util.ArrayList;
 @Repository
 public interface libroRepositorio extends JpaRepository<Libro, String> {
     ArrayList<Libro> findByAutor(String autor);
-
 }

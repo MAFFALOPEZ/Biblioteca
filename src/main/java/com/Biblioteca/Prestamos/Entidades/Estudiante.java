@@ -1,12 +1,11 @@
 package com.Biblioteca.Prestamos.Entidades;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Estudiante")
+
 public class Estudiante {
     @Id
     @Column(unique = true, length = 30)
@@ -19,6 +18,9 @@ public class Estudiante {
     private String email;
     @Column(nullable = false, length = 50)
     private String telefono;
+
+    @OneToMany(mappedBy = "estudiante",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public Set<Prestamo> prestamos;
 
     public Estudiante() {
     }
@@ -81,4 +83,5 @@ public class Estudiante {
                 ", telefono='" + telefono + '\'' +
                 '}';
     }
+
 }

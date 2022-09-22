@@ -1,9 +1,7 @@
 package com.Biblioteca.Prestamos.Entidades;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="Libro")
@@ -20,6 +18,9 @@ public class Libro {
     @Column(nullable = false)
     private Integer no_page;
 
+    @OneToMany(mappedBy = "libro", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+    public Set<Prestamo> prestamos;
     public Libro() {
     }
 
